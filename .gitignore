@@ -1,0 +1,32 @@
+# Environment variables (contains secrets - never commit)
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Database
+instance/
+*.db
+*.sqlite
+*.sqlite3
+
+# Test / cache artifacts
+.pytest_cache/
+.cache/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+
+# Claude Code - per-developer local settings
+.claude/settings.local.json

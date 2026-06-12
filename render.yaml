@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: coupon-usa
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn wsgi:app --workers 1 --timeout 60
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: SECRET_KEY
+        generateValue: true
+      - key: GROQ_API_KEY
+        sync: false
+      - key: ADMIN_REFRESH_TOKEN
+        sync: false
+      # Optional - comma-separated list, overrides the default RSS feed list
+      # (Slickdeals frontpage, Slickdeals pop deals, Brad's Deals, Dealsplus,
+      # r/deals, r/coupons).
+      - key: RSS_FEED_URLS
+        sync: false
+      # Optional - set to a Render Postgres connection string for persistent storage.
+      - key: DATABASE_URL
+        sync: false

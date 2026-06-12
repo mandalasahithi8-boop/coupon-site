@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Server Error - CouponUSA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background: #0f0f1a; color: #fff; min-height: 100vh; display: flex; flex-direction: column; }
+        nav { background: rgba(15,15,26,0.95); padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .nav-logo { font-size: 1.5em; font-weight: 800; background: linear-gradient(135deg, #ff6b6b, #ffd93d); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; }
+        .home-btn { background: linear-gradient(135deg, #ff6b6b, #ee5a24); color: white; padding: 8px 20px; border-radius: 25px; text-decoration: none; font-weight: 600; font-size: 14px; }
+        .error-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px 20px; }
+        .error-code { font-size: 6em; font-weight: 800; background: linear-gradient(135deg, #ff6b6b, #ffd93d); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .error-msg { font-size: 1.3em; color: rgba(255,255,255,0.7); margin: 10px 0 30px; }
+        .home-link { background: linear-gradient(135deg, #ff6b6b, #ee5a24); color: white; padding: 14px 32px; border-radius: 14px; text-decoration: none; font-weight: 700; transition: all 0.3s; }
+        .home-link:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255,107,107,0.4); }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/" class="nav-logo">🏷️ CouponUSA</a>
+        <a href="/" class="home-btn">🏠 Home</a>
+    </nav>
+    <div class="error-wrap">
+        <div class="error-code">500</div>
+        <div class="error-msg">⚠️ Something went wrong on our end. Please try again in a moment.</div>
+        <a href="/" class="home-link">← Back to all deals</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{ coupon.store }} Coupon - CouponUSA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background: #0f0f1a; color: #fff; min-height: 100vh; }
+        nav { background: rgba(15,15,26,0.95); padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .nav-logo { font-size: 1.5em; font-weight: 800; background: linear-gradient(135deg, #ff6b6b, #ffd93d); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; }
+        .home-btn { background: linear-gradient(135deg, #ff6b6b, #ee5a24); color: white; padding: 8px 20px; border-radius: 25px; text-decoration: none; font-weight: 600; font-size: 14px; }
+
+        .detail-container { max-width: 600px; margin: 60px auto; padding: 20px; }
+
+        .detail-card { background: linear-gradient(135deg, #1e1e3a, #252545); border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; padding: 40px; text-align: center; position: relative; overflow: hidden; }
+        .detail-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(135deg, #ff6b6b, #ffd93d); }
+
+        .store-logo { font-size: 4em; margin-bottom: 15px; }
+        .store-title { font-size: 2em; font-weight: 800; color: white; margin-bottom: 8px; }
+        .deal-title { color: rgba(255,255,255,0.7); font-size: 1.1em; margin-bottom: 25px; }
+
+        .discount-big { font-size: 3em; font-weight: 800; background: linear-gradient(135deg, #ff6b6b, #ffd93d); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 25px; }
+
+        .code-section { background: rgba(255,255,255,0.05); border: 2px dashed rgba(255,217,61,0.4); border-radius: 16px; padding: 25px; margin-bottom: 25px; }
+        .code-label { font-size: 13px; color: rgba(255,255,255,0.5); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+        .code-value { font-family: monospace; font-size: 2em; font-weight: 800; color: #ffd93d; letter-spacing: 3px; cursor: pointer; }
+        .copy-btn { margin-top: 12px; background: rgba(255,217,61,0.15); border: 1px solid rgba(255,217,61,0.3); color: #ffd93d; padding: 8px 20px; border-radius: 20px; cursor: pointer; font-size: 13px; font-family: 'Inter', sans-serif; transition: all 0.3s; }
+        .copy-btn:hover { background: rgba(255,217,61,0.3); }
+
+        .info-row { display: flex; justify-content: center; gap: 30px; margin-bottom: 30px; flex-wrap: wrap; }
+        .info-item { text-align: center; }
+        .info-label { font-size: 11px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1px; }
+        .info-value { font-size: 15px; font-weight: 600; color: white; margin-top: 4px; }
+
+        .visit-btn { display: block; background: linear-gradient(135deg, #ff6b6b, #ee5a24); color: white; padding: 18px 40px; border-radius: 14px; text-decoration: none; font-size: 1.1em; font-weight: 700; margin-bottom: 15px; transition: all 0.3s; }
+        .visit-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(255,107,107,0.4); }
+
+        .back-btn { display: block; color: rgba(255,255,255,0.5); text-decoration: none; font-size: 14px; margin-top: 10px; }
+        .back-btn:hover { color: white; }
+
+        .expires-badge { display: inline-block; background: rgba(255,107,107,0.15); border: 1px solid rgba(255,107,107,0.3); color: #ff6b6b; padding: 6px 15px; border-radius: 20px; font-size: 13px; margin-bottom: 25px; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/" class="nav-logo">🏷️ CouponUSA</a>
+        <a href="/" class="home-btn">🏠 Home</a>
+    </nav>
+
+    <div class="detail-container">
+        <div class="detail-card">
+            <div class="store-logo">{{ coupon.logo }}</div>
+            <div class="store-title">{{ coupon.store }}</div>
+            <div class="deal-title">{{ coupon.title }}</div>
+            <div class="discount-big">{{ coupon.discount }}</div>
+
+            <div class="expires-badge">⏰ Expires: {{ coupon.expires }}</div>
+
+            <div class="code-section">
+                <div class="code-label">Your Coupon Code</div>
+                <div class="code-value" id="codeText">{{ coupon.code }}</div>
+                <button class="copy-btn" onclick="navigator.clipboard.writeText('{{ coupon.code }}'); this.innerText='✅ Copied!'; setTimeout(()=>this.innerText='📋 Copy Code', 2000);">📋 Copy Code</button>
+            </div>
+
+            <div class="info-row">
+                <div class="info-item">
+                    <div class="info-label">Category</div>
+                    <div class="info-value">{{ coupon.category }}</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Available In</div>
+                    <div class="info-value">{{ coupon.states | join(', ') if coupon.states[0] != 'All' else 'All States' }}</div>
+                </div>
+            </div>
+
+            <a href="{{ coupon.url }}" target="_blank" class="visit-btn">
+                🚀 Visit {{ coupon.store }} Website
+            </a>
+            <a href="/" class="back-btn">← Back to all coupons</a>
+        </div>
+    </div>
+</body>
+</html>
