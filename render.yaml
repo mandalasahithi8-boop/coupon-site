@@ -15,8 +15,7 @@ services:
       - key: ADMIN_REFRESH_TOKEN
         sync: false
       # Optional - comma-separated list, overrides the default RSS feed list
-      # (Slickdeals frontpage, Slickdeals pop deals, Brad's Deals, Dealsplus,
-      # r/deals, r/coupons).
+      # (Slickdeals frontpage, Slickdeals pop deals, r/deals, r/coupons, r/frugal).
       - key: RSS_FEED_URLS
         sync: false
       # Optional - set to a Render Postgres connection string for persistent storage.

@@ -87,10 +87,9 @@ class RSSFeedProvider(Provider):
     DEFAULT_FEEDS = [
         "https://slickdeals.net/newsearch.php?mode=frontpage&frontpage=1&rss=1",
         "https://slickdeals.net/newsearch.php?mode=popdeals&rss=1",
-        "https://www.bradsdeals.com/feed",
-        "https://www.dealsplus.com/feed",
         "https://www.reddit.com/r/deals/.rss",
         "https://www.reddit.com/r/coupons/.rss",
+        "https://www.reddit.com/r/frugal/.rss",
     ]
 
     ENTRIES_PER_FEED = 50
