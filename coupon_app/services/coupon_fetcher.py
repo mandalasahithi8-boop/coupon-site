@@ -21,7 +21,18 @@ CATEGORY_KEYWORDS = [
 ]
 DEFAULT_CATEGORY = "Shopping"
 
-CODE_PATTERN = re.compile(r"\b(?:code|promo code|coupon code)[:\s]+([A-Z0-9]{4,15})\b", re.IGNORECASE)
+# Word-boundary matching - plain substring checks misfire on short keywords
+# like "cat"/"pet" matching inside unrelated words (e.g. "dealcatcher.com",
+# which appears in every DealCatcher feed entry's image URL).
+_CATEGORY_PATTERNS = [
+    (category, re.compile("|".join(r"\b" + re.escape(keyword) + r"\b" for keyword in keywords), re.IGNORECASE))
+    for category, keywords in CATEGORY_KEYWORDS
+]
+
+# Only the "code"/"promo code" keyword is case-insensitive - the captured
+# code itself must be upper-case/digits, otherwise e.g. "code that" matches
+# the lowercase word "that" as a bogus code under IGNORECASE.
+CODE_PATTERN = re.compile(r"(?i:code|promo code|coupon code)[:\s]+([A-Z0-9]{4,15})\b")
 
 # feedparser uses urllib under the hood, which on some Python installs (notably
 # python.org builds on macOS) has no CA bundle wired up and fails every HTTPS
@@ -37,9 +48,9 @@ _REQUEST_HEADERS = {
 
 
 def categorize(*texts):
-    combined = " ".join(t for t in texts if t).lower()
-    for category, keywords in CATEGORY_KEYWORDS:
-        if any(keyword in combined for keyword in keywords):
+    combined = " ".join(t for t in texts if t)
+    for category, pattern in _CATEGORY_PATTERNS:
+        if pattern.search(combined):
             return category
     return DEFAULT_CATEGORY
 
@@ -90,6 +101,9 @@ class RSSFeedProvider(Provider):
         "https://www.reddit.com/r/deals/.rss",
         "https://www.reddit.com/r/coupons/.rss",
         "https://www.reddit.com/r/frugal/.rss",
+        "https://hip2save.com/feed/",
+        "https://www.passionatepennypincher.com/feed/",
+        "https://www.dealcatcher.com/rss",
     ]
 
     ENTRIES_PER_FEED = 50
