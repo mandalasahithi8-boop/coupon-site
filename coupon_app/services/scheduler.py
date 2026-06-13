@@ -44,13 +44,13 @@ def init_scheduler(app):
             except Exception:
                 logger.exception("Duplicate cleanup job failed")
 
-    # Job 1: full provider refresh, daily at 3 AM
-    scheduler.add_job(fetch_new_coupons, CronTrigger(hour=3, minute=0), id="daily_fetch", replace_existing=True)
+    # Job 1: full provider refresh, every 6 hours
+    scheduler.add_job(fetch_new_coupons, IntervalTrigger(hours=6), id="daily_fetch", replace_existing=True)
     # Job 2: deactivate expired coupons, every 6 hours
     scheduler.add_job(deactivate_expired_coupons, IntervalTrigger(hours=6), id="expire_check", replace_existing=True)
     # Job 3: remove duplicate store+code coupons, weekly (Sunday 2 AM)
     scheduler.add_job(cleanup_duplicate_coupons, CronTrigger(day_of_week="sun", hour=2, minute=0), id="weekly_cleanup", replace_existing=True)
 
     scheduler.start()
-    logger.info("Scheduler started: daily_fetch (3:00), expire_check (every 6h), weekly_cleanup (Sun 2:00)")
+    logger.info("Scheduler started: daily_fetch (every 6h), expire_check (every 6h), weekly_cleanup (Sun 2:00)")
     return scheduler
