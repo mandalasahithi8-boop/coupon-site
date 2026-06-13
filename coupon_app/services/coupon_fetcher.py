@@ -70,21 +70,6 @@ class Provider:
         raise NotImplementedError
 
 
-class MockProvider(Provider):
-    """Always-available sample data so the pipeline works with zero API keys configured."""
-
-    name = "mock"
-
-    SAMPLE = [
-        {"store": "Mock Outlet", "title": "20% off your first order", "code": "MOCK20", "discount": "20%", "url": "https://example.com/mock-outlet"},
-        {"store": "Demo Grocers", "title": "$10 off $50 grocery order", "code": "DEMO10", "discount": "$10", "url": "https://example.com/demo-grocers"},
-        {"store": "Sample Travel Co", "title": "Save $75 on flight bookings", "code": "FLY75DEMO", "discount": "$75", "url": "https://example.com/sample-travel"},
-    ]
-
-    def fetch(self):
-        return [{**item, "source": self.name} for item in self.SAMPLE]
-
-
 class RSSFeedProvider(Provider):
     """Parses free deal RSS feeds with feedparser.
 
@@ -153,7 +138,7 @@ class RSSFeedProvider(Provider):
 
 
 def get_providers():
-    return [MockProvider(), RSSFeedProvider()]
+    return [RSSFeedProvider()]
 
 
 def fetch_coupons(providers=None):

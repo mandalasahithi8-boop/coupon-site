@@ -27,6 +27,7 @@ def home():
     return render_template(
         "index.html",
         coupons=coupons,
+        total_active=len(coupons),
         states=states_list,
         cities_by_state=cities_by_state,
         last_updated=last_refresh.ran_at if last_refresh else None,
@@ -64,6 +65,7 @@ def search():
     return render_template(
         "index.html",
         coupons=results,
+        total_active=_active_coupons_query().count(),
         query=query,
         ai_tip=ai_tip,
         states=states_list,

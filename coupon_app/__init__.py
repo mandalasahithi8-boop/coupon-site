@@ -59,11 +59,8 @@ def _register_error_handlers(app):
 
 
 def _init_database(app):
-    from coupon_app.seed import seed_if_empty
-
     with app.app_context():
         db.create_all()
-        seed_if_empty()
 
 
 def _init_scheduler(app):
